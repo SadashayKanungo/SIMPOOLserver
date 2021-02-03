@@ -1,0 +1,22 @@
+{
+  "name": "simpoolserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SadashayKanungo/SIMPOOLserver.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SadashayKanungo/SIMPOOLserver/issues"
+  },
+  "homepage": "https://github.com/SadashayKanungo/SIMPOOLserver#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
