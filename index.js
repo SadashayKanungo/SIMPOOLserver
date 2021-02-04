@@ -1,6 +1,7 @@
+const datadictmin = require('./resources/datadictmin.json');
 const counter = require('./src/counter.js');
-const datadict = require('./resources/datadict.json');
-const cdcdict = require('./resources/cdcdict.json');
+const getCdc = require('./src/cdcs.js');
+const generateTables = require('./src/generator.js');
 
 const express = require('express');
 const app = express();
@@ -8,25 +9,24 @@ const app = express();
 const port = 2000;
 
 app.get('/', (req,res) => {
-    res.send(datadict);
+    res.status(200).json(datadictmin);
 });
 
 app.get('/count', (req,res) => {
-    res.send(counter.getCount());
+    res.status(200).json(counter.getCount());
 });
 
 app.get('/cdc/:key', (req,res) => {
-    let sem = req.params.key[0],
-        branch = req.params.key.slice(1);
-    res.send(cdcdict[branch][sem]);
-    
+    counter.incrementCount(1,0);
+    res.status(200).json(getCdc(req.params.key));  
 });
 
+app.use(express.json());
 app.post('/generate', (req,res) =>{
-
+    var tables = generateTables(req.body);
+    counter.incrementCount(0,tables.length);
+    res.status(200).json(tables);
 });
-
-
 
 app.listen(port, ()=>{
     console.log("listening at http://localhost:"+port);
