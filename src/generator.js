@@ -42,11 +42,12 @@ function makeTables(clusters){
     return tables;
 }
 
+function lookup(id){
+    let [c,s] = id.split(' ');
+    return datadict[c].sec[s];
+}
+
 function validateTables(tables){
-    function lookup(id){
-        let [c,s] = id.split(' ');
-        return datadict[c].sec[s];
-    }
     
     function matchSections(table){
         var times = new Array(72).fill(0);
@@ -68,6 +69,26 @@ function validateTables(tables){
     return tables.filter(matchSections);
 }
 
+function printTables(tables){
+
+    function print(table){
+        var printout = new Array(72).fill("-");
+        for(sec of table){
+            var time = lookup(sec).time;
+            for(i in time){
+                if(time[i]) printout[i] = sec;
+            }
+        }
+        return printout;
+    }
+
+    var prints = [];
+    for(var table of tables){
+        prints.push({courses:table, print:print(table)});
+    }
+    return prints;
+}
+
 function generateTables(clusters){
     // clusters = [ { courses:[ ["c11"], ["c21","c22","c23"], ["c31","c32"] ], nos:2}, { courses:[ ["c41"], ["c51"], ["c61"] ], nos:1} ]
     var reducedClusters = reduceClusters(clusters);
@@ -81,7 +102,9 @@ function generateTables(clusters){
                   [ 'c23', 'c32', 'c41' ], [ 'c23', 'c32', 'c51' ], [ 'c23', 'c32', 'c61' ]  ]*/
     var validatedTables = validateTables(tables);
 
-    return validatedTables;
+    var printedTables = printTables(validatedTables);
+
+    return printedTables;
 }
 
 module.exports = generateTables;

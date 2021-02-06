@@ -9,15 +9,18 @@ const app = express();
 const port = 2000;
 
 app.get('/', (req,res) => {
+    counter.incrementCount(1,0);
+    res.setHeader('Access-Control-Allow-Origin','*');
     res.status(200).json(datadictmin);
 });
 
 app.get('/count', (req,res) => {
+    res.setHeader('Access-Control-Allow-Origin','*');
     res.status(200).json(counter.getCount());
 });
 
 app.get('/cdc/:key', (req,res) => {
-    counter.incrementCount(1,0);
+    res.setHeader('Access-Control-Allow-Origin','*');
     res.status(200).json(getCdc(req.params.key));  
 });
 
@@ -25,6 +28,7 @@ app.use(express.json());
 app.post('/generate', (req,res) =>{
     var tables = generateTables(req.body);
     counter.incrementCount(0,tables.length);
+    res.setHeader('Access-Control-Allow-Origin','*');
     res.status(200).json(tables);
 });
 
