@@ -1,4 +1,4 @@
-const datadictmin = require('./resources/datadictmin.json');
+const datadictmin = require('./resources/datadictminnew.json');
 const counter = require('./src/counter.js');
 const getCdc = require('./src/cdcs.js');
 const generateTables = require('./src/generator.js');
@@ -8,7 +8,7 @@ const app = express();
 
 const port = 2000;
 
-app.get('/', (req,res) => {
+app.get('/data', (req,res) => {
     counter.incrementCount(1,0);
     res.setHeader('Access-Control-Allow-Origin','*');
     res.status(200).json(datadictmin);
