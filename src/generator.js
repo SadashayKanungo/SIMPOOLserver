@@ -1,4 +1,4 @@
-const datadict = require('../resources/datadictnew.json');
+const datadict = require('../resources/datadict.json');
 
 function makeSubsets(courses,nos){
     var subsets = [];    

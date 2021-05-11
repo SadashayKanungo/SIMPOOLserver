@@ -1,4 +1,4 @@
-const datadictmin = require('./resources/datadictminnew.json');
+const datadictmin = require('./resources/datadictmin.json');
 const counter = require('./src/counter.js');
 const getCdc = require('./src/cdcs.js');
 const generateTables = require('./src/generator.js');
