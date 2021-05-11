@@ -90,20 +90,22 @@ function printTables(tables){
 }
 
 function generateTables(clusters){
-    // clusters = [ { courses:[ ["c11"], ["c21","c22","c23"], ["c31","c32"] ], nos:2}, { courses:[ ["c41"], ["c51"], ["c61"] ], nos:1} ]
+    /* clusters = [ { "courses":[ ["ECON_F211 L1+T1"], ["ECON_F213 L1+T1"], ["ECON_F212 L1+T1"] ], "nos":3}, 
+                    { "courses":[ ["MATH_F211 L1+T1"], ["MATH_F211 L2+T2"], ["MATH_F211 L3+T4"], ["MATH_F211 L4+T4"] ], "nos":1},
+                    {"courses":[ ["GS_F211 L1"], ["GS_F212 L1"], ["GS_F221 L1"], ["GS_F231 L1"] ], "nos":2} ]*/
+    
     var reducedClusters = reduceClusters(clusters);
-    /* reducedClusters = [ [["c11","c21"], ["c11","c22"], ["c11","c23"], ["c21","c31"], ["c21","c32"], ["c22","c31"], ["c22","c32"], ["c23","c31"], ["c23","c32"]]
-                           [["c41"], ["c51"], ["c61"]] ]*/
+    /* reducedClusters = */
+    
     var tables = makeTables(reducedClusters);
-    /* tables = [ [ 'c11', 'c21', 'c41' ], [ 'c11', 'c21', 'c51' ], [ 'c11', 'c21', 'c61' ], [ 'c11', 'c22', 'c41' ], [ 'c11', 'c22', 'c51' ], [ 'c11', 'c22', 'c61' ],
-                  [ 'c11', 'c23', 'c41' ], [ 'c11', 'c23', 'c51' ], [ 'c11', 'c23', 'c61' ], [ 'c21', 'c31', 'c41' ], [ 'c21', 'c31', 'c51' ], [ 'c21', 'c31', 'c61' ],
-                  [ 'c21', 'c32', 'c41' ], [ 'c21', 'c32', 'c51' ], [ 'c21', 'c32', 'c61' ], [ 'c22', 'c31', 'c41' ], [ 'c22', 'c31', 'c51' ], [ 'c22', 'c31', 'c61' ],
-                  [ 'c22', 'c32', 'c41' ], [ 'c22', 'c32', 'c51' ], [ 'c22', 'c32', 'c61' ], [ 'c23', 'c31', 'c41' ], [ 'c23', 'c31', 'c51' ], [ 'c23', 'c31', 'c61' ],
-                  [ 'c23', 'c32', 'c41' ], [ 'c23', 'c32', 'c51' ], [ 'c23', 'c32', 'c61' ]  ]*/
+    /* tables = */
+    
     var validatedTables = validateTables(tables);
-
+    /* validatedTables = */
+    
     var printedTables = printTables(validatedTables);
-
+    /* printedTables = [ {"courses": [...], "print": [...] }, x20]*/
+    
     return printedTables;
 }
 
