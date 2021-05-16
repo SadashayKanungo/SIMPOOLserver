@@ -11,16 +11,22 @@ const port = 2000;
 app.get('/data', (req,res) => {
     counter.incrementCount(1,0);
     res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Headers','*');
+    res.setHeader('Access-Control-Allow-Methods','*');
     res.status(200).json(datadictmin);
 });
 
 app.get('/count', (req,res) => {
     res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Headers','*');
+    res.setHeader('Access-Control-Allow-Methods','*');
     res.status(200).json(counter.getCount());
 });
 
 app.get('/cdc/:key', (req,res) => {
     res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Headers','*');
+    res.setHeader('Access-Control-Allow-Methods','*');
     res.status(200).json(getCdc(req.params.key));  
 });
 
@@ -29,6 +35,8 @@ app.post('/generate', (req,res) =>{
     var tables = generateTables(req.body);
     counter.incrementCount(0,tables.length);
     res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Headers','*');
+    res.setHeader('Access-Control-Allow-Methods','*');
     res.status(200).json(tables);
 });
 
