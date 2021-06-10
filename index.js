@@ -1,45 +1,49 @@
-const datadictmin = require('./resources/datadictmin.json');
-const counter = require('./src/counter.js');
-const getCdc = require('./src/cdcs.js');
-const generateTables = require('./src/generator.js');
+const datadictmin = require('./resources/datadictmin.json')
+const counter = require('./src/counter.js')
+const getCdc = require('./src/cdcs.js')
+const generateTables = require('./src/generator.js')
 
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
 
-const port = 2000;
+const port = process.env.PORT || 2000
+
+app.use(express.json())
+
+app.use((req, res, next) => {
+    res.set('Access-Control-Allow-Origin', '')
+    res.set('Access-Control-Allow-Headers', '')
+    res.set('Access-Control-Allow-Methods', '*')
+    if (req.method === 'OPTIONS') {
+        res.status(200).end()
+        return
+    }
+    next()
+})
+
+app.get('/', (req,res) => {
+    res.status(200).send('Welcome to Simpool Timetables')
+})
 
 app.get('/data', (req,res) => {
-    counter.incrementCount(1,0);
-    res.setHeader('Access-Control-Allow-Origin','*');
-    res.setHeader('Access-Control-Allow-Headers','*');
-    res.setHeader('Access-Control-Allow-Methods','*');
-    res.status(200).json(datadictmin);
-});
+    counter.incrementCount(1,0)
+    res.status(200).send(datadictmin)
+})
 
 app.get('/count', (req,res) => {
-    res.setHeader('Access-Control-Allow-Origin','*');
-    res.setHeader('Access-Control-Allow-Headers','*');
-    res.setHeader('Access-Control-Allow-Methods','*');
-    res.status(200).json(counter.getCount());
-});
+    res.status(200).send(counter.getCount())
+})
 
-app.get('/cdc/:key', (req,res) => {
-    res.setHeader('Access-Control-Allow-Origin','*');
-    res.setHeader('Access-Control-Allow-Headers','*');
-    res.setHeader('Access-Control-Allow-Methods','*');
-    res.status(200).json(getCdc(req.params.key));  
-});
+app.get('/cdc/:bitsid', (req,res) => {
+    res.status(200).send(getCdc(req.params.bitsid))
+})
 
-app.use(express.json());
 app.post('/generate', (req,res) =>{
     var tables = generateTables(req.body);
     counter.incrementCount(0,tables.length);
-    res.setHeader('Access-Control-Allow-Origin','*');
-    res.setHeader('Access-Control-Allow-Headers','*');
-    res.setHeader('Access-Control-Allow-Methods','*');
-    res.status(200).json(tables);
-});
+    res.status(200).send(tables);
+})
 
 app.listen(port, ()=>{
-    console.log("listening at http://localhost:"+port);
-});
+    console.log("Listening on port"+port);
+})

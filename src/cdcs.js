@@ -1,9 +1,16 @@
-const cdcdict = require('../resources/cdcdict.json');
+const cdcdict = require('../resources/cdcdict.json')
 
-function getCdc(key){
-    let sem = key[0],
-        branch = key.slice(1);
-    return cdcdict[branch][sem];
+const getCdc = (bitsid) => {
+    
+    var todayYear = new Date().getFullYear()
+    var todayMonth = new Date().getMonth() + 1
+    
+    var sem = (todayYear - parseInt(bitsid.slice(0,4))) * 2
+    if(parseInt(todayMonth) >= 6) sem=sem+1
+
+    var branch = (bitsid[4]==='A') ? bitsid.slice(4,6) : bitsid.slice(4,8)
+
+    return cdcdict[branch][String(sem)]
 }
 
-module.exports = getCdc;
+module.exports = getCdc

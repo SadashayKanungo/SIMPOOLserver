@@ -1,13 +1,12 @@
-var count = {students:0,tables:0};
+var count = {students:0,tables:0}
 
-const counter = {};
-counter.getCount = ()=>{
-    return count;
+
+const getCount = ()=>{
+    return count
+}
+const incrementCount = (students,tables)=>{
+    count.students += students
+    count.tables += tables
 }
 
-counter.incrementCount = (students,tables)=>{
-    count.students += students;
-    count.tables += tables;
-}
-
-module.exports = counter;
+module.exports = {getCount, incrementCount}
